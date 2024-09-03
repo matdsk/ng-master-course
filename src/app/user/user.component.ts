@@ -8,6 +8,11 @@ import {
   Output,
 } from '@angular/core';
 
+export interface User {
+  id: string;
+  name: string;
+  avatar: string;
+}
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -20,16 +25,16 @@ export class UserComponent {
   // @Input({ required: true }) name!: string;
   // @Output() select = new EventEmitter<string>();
 
-  id = input.required<string>();
-  avatar = input.required<string>();
-  name = input.required<string>();
+  user = input.required<User>();
+  // avatar = input.required<string>();
+  // name = input.required<string>();
   select = output<string>();
 
   imagePath = computed<string>(() => {
-    return 'assets/users/' + this.avatar();
+    return 'assets/users/' + this.user().avatar;
   });
 
   onSelectUser(): void {
-    this.select.emit(this.id());
+    this.select.emit(this.user().id);
   }
 }
