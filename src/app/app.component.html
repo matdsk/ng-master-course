@@ -9,7 +9,10 @@
   </ul>
 
   @if(selectedUser()) {
-  <app-tasks [name]="this.selectedUser()?.name" />
+  <app-tasks
+    [id]="this.selectedUser()!.id"
+    [name]="this.selectedUser()!.name"
+  />
   } @else {
   <p>Select a user to see their tasks!</p>
   }

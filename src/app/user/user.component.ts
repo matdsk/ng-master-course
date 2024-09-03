@@ -1,18 +1,6 @@
-import {
-  Component,
-  computed,
-  EventEmitter,
-  Input,
-  input,
-  output,
-  Output,
-} from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
+import { type User } from './user.model';
 
-export interface User {
-  id: string;
-  name: string;
-  avatar: string;
-}
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -26,8 +14,6 @@ export class UserComponent {
   // @Output() select = new EventEmitter<string>();
 
   user = input.required<User>();
-  // avatar = input.required<string>();
-  // name = input.required<string>();
   select = output<string>();
 
   imagePath = computed<string>(() => {
