@@ -14,6 +14,7 @@ export class UserComponent {
   // @Output() select = new EventEmitter<string>();
 
   user = input.required<User>();
+  isUserSelected = input.required<boolean>();
   select = output<string>();
 
   imagePath = computed<string>(() => {

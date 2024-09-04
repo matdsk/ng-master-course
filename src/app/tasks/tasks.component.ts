@@ -1,6 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { TaskComponent } from './task/task.component';
-import { Task } from './task/task.model';
+import { type NewTaskData, type Task } from './task/task.model';
+import { NewTaskComponent } from './new-task/new-task.component';
 
 const dummyTasks = [
   {
@@ -31,7 +32,7 @@ const dummyTasks = [
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
@@ -39,8 +40,33 @@ export class TasksComponent {
   name = input.required<string>();
   id = input.required<string>();
   tasks: Task[] = dummyTasks;
+  showNewTaskForm: boolean = false;
 
-  selectedUserTasks = computed(() => {
+  get selectedUserTasks() {
     return this.tasks.filter((task) => task.userId === this.id());
-  });
+  }
+
+  onCompleteTask(id: string) {
+    this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
+
+  onStartAddTask() {
+    this.showNewTaskForm = true;
+  }
+
+  onCancelAddTask() {
+    this.showNewTaskForm = false;
+  }
+
+  onAddTask(taskDate: NewTaskData) {
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      userId: this.id(),
+      title: taskDate.title,
+      summary: taskDate.summary,
+      dueDate: taskDate.date,
+    });
+    this.showNewTaskForm = false;
+    
+  }
 }
