@@ -14,8 +14,8 @@
 
   @if(selectedUser()) {
   <app-tasks
-    [id]="this.selectedUser()!.id"
-    [name]="this.selectedUser()!.name"
+    [userId]="this.selectedUser()!.id"
+    [userName]="this.selectedUser()!.name"
   />
   } @else {
   <p>Select a user to see their tasks!</p>
